@@ -1,25 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Grid, Box } from "@mui/material";
+import { styled } from "@mui/system";
 import './App.css';
+import ListWrapper from './views/MainPage/ListWrapper/ListWrapper';
+import TopHeader from './layouts/TopHeader/TopHeader';
+import SelectedItems from './views/MainPage/SelectedItems/SelectedItems';
 
+
+const Wrapper = styled(Box)(({ theme }) => ({
+  width: "100%",
+  height: 'calc(100vh - 50px)',
+  marginTop: '50px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  overflowY: 'auto',
+  "@media only screen and (max-width: 700px)": {
+    paddingBottom: '30px'
+  },
+}));
+const CostumGrid = styled(Grid)(({ theme }) => ({
+  width: "90vw",
+  "@media only screen and (max-width: 700px)": {
+    width: "100vw",
+  },
+  
+}));
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <TopHeader/>
+      <CostumGrid container spacing={10}>
+        <Grid item xs={12} md={4}><ListWrapper/></Grid>
+        <Grid item xs={12} md={4}><ListWrapper/></Grid>
+        <Grid item xs={12} md={4}><SelectedItems/></Grid>
+      </CostumGrid>
+    </Wrapper>
   );
 }
 
