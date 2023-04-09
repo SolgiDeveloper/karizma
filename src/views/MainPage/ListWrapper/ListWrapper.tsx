@@ -84,7 +84,7 @@ const ListWrapper = () => {
   return (
     <Wrapper>
       <TextField placeholder='Search...' variant="outlined" onChange={handleSearch}/>
-      {searchedList.length === 0 && isSearch && <Box>Nothing Founded !</Box>}
+      {searchedList.length === 0 && isSearch && <Box>Nothing Found !</Box>}
       {!isSearch && <ItemsWrapper>
         {people.length > 0 && people.map((item) => {
           return <Peoples onClick={()=> dispatch(addToList(item.name))}>

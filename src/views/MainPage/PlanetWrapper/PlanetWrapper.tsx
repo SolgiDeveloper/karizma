@@ -84,7 +84,7 @@ const PlanetWrapper = () => {
   return (
     <Wrapper>
       <TextField placeholder='Search...' variant="outlined" onChange={handleSearch}/>
-      {searchedList.length === 0 && isSearch && <Box>Nothing Founded !</Box>}
+      {searchedList.length === 0 && isSearch && <Box>Nothing Found !</Box>}
       {!isSearch && <ItemsWrapper>
         {planets.length > 0 && planets.map((item) => {
           return <Planets onClick={()=> dispatch(addToList(item.name))}>
