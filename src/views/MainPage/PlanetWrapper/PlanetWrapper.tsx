@@ -16,7 +16,7 @@ const ItemsWrapper = styled(Box)(({ theme }) => ({
   marginTop: '5px',
   overflowY: 'auto'
 }));
-const Peoples = styled(Box)(({ theme }) => ({
+const Planets = styled(Box)(({ theme }) => ({
   marginBottom: '10px',
   border: '1px solid gray',
   borderRadius: '10px',
@@ -30,52 +30,51 @@ const BottonStyle = {
   bottom: '16px', 
   width: 'calc(100% - 32px)'
 }
-interface peopleT {
+interface planetT{
   name: string,
-  barthDay: string,
-  eyeColor: string,
-  hairColor:string
+  climate: string,
+  diameter: string,
+  gravity:string
 }
-const ListWrapper = () => {
-    const [people, setPeople] = useState<peopleT[]>([])
-
-    const getAllPeoples = () => {
-      let getPeople:peopleT[] = []
-      axios.get<any>(`https://swapi.dev/api/people/`)
+const PlanetWrapper = () => {
+    const [planets, setPlanets] = useState<planetT[]>([])
+    const getAllPlanets = () => {
+      let getPlanets:planetT[] = []
+      axios.get<any>(`https://swapi.dev/api/planets/`)
         .then(res => {
           res?.data.results.map((item:any) => {
-            getPeople.push({
+            getPlanets.push({
               name: item.name,
-              barthDay: item.birth_year,
-              eyeColor: item.eye_color,
-              hairColor:item.hair_color
+              climate: item.climate,
+              diameter: item.diameter,
+              gravity:item.gravity
             })
           })
-          setPeople(getPeople)
+          setPlanets(getPlanets)
         })
     }
-    const handleGetPeoples = () => {
-      people.length > 0 ? setPeople([]) : getAllPeoples()
+    const handleGetPalnets = () => {
+      planets.length > 0 ? setPlanets([]) : getAllPlanets()
     }
-  useEffect(() => {
-    getAllPeoples()
+  useEffect(()=>{
+    getAllPlanets()
   },[])
   return (
     <Wrapper>
       <TextField placeholder='Search...' variant="outlined" />
       <ItemsWrapper>
-        {people.map((item) => {
-          return <Peoples>
+        {planets.map((item) => {
+          return <Planets>
                   <Typography variant="h6">name: {item.name}</Typography>
-                  <Typography variant="subtitle1">barth day: {item.barthDay}</Typography>
-                  <Typography variant="subtitle1">eye color: {item.eyeColor}</Typography>
-                  <Typography variant="subtitle1">hair color: {item.hairColor}</Typography>
-                </Peoples>
+                  <Typography variant="subtitle1">climate: {item.climate}</Typography>
+                  <Typography variant="subtitle1">diameter: {item.diameter}</Typography>
+                  <Typography variant="subtitle1">gravity: {item.gravity}</Typography>
+                </Planets>
         })}
       </ItemsWrapper>
-      <Button sx={BottonStyle} variant="contained" onClick={handleGetPeoples}>{people.length > 0 ? 'CLEAR LIST' : 'LOAD PEOPLES'}</Button>
+      <Button sx={BottonStyle} variant="contained" onClick={handleGetPalnets}>{planets.length > 0 ? 'CLEAR LIST' : 'LOAD PLANETS'}</Button>
     </Wrapper>
   )
 };
 
-export default ListWrapper;
+export default PlanetWrapper;

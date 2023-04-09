@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Grid, Box } from "@mui/material";
 import { styled } from "@mui/system";
 import './App.css';
 import ListWrapper from './views/MainPage/ListWrapper/ListWrapper';
+import PlanetWrapper from './views/MainPage/PlanetWrapper/PlanetWrapper';
 import TopHeader from './layouts/TopHeader/TopHeader';
 import SelectedItems from './views/MainPage/SelectedItems/SelectedItems';
 
@@ -26,13 +27,15 @@ const CostumGrid = styled(Grid)(({ theme }) => ({
   },
   
 }));
+
 function App() {
+  
   return (
     <Wrapper>
       <TopHeader/>
       <CostumGrid container spacing={10}>
         <Grid item xs={12} md={4}><ListWrapper/></Grid>
-        <Grid item xs={12} md={4}><ListWrapper/></Grid>
+        <Grid item xs={12} md={4}><PlanetWrapper/></Grid>
         <Grid item xs={12} md={4}><SelectedItems/></Grid>
       </CostumGrid>
     </Wrapper>
