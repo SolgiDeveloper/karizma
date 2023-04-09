@@ -2,8 +2,7 @@ import React from 'react';
 import {Box, Button} from "@mui/material";
 import { styled } from "@mui/system";
 import { RootState } from "../../../store";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { removeFromList } from "../../../store/slices/listSlice";
 const Main = styled(Box)(({ theme }) => ({
     backgroundColor: '#fff',

@@ -42,7 +42,7 @@ const TopHeader = () => {
     <Wrapper>
       <Img src="/logos/karizma.png" alt="karizma-logo" />
       <Typography variant="subtitle1" color="#fff">
-        Heading
+        Code Challenge
       </Typography>
       <IconButton aria-label="help" onClick={handleQModal}>
         <HelpIcon sx={{ color: "#fff" }} />

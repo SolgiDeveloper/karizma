@@ -4,6 +4,7 @@ import axios from 'axios'
 import { styled } from "@mui/system";
 import { useDispatch } from "react-redux";
 import { addToList } from "../../../store/slices/listSlice";
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 const Wrapper = styled(Box)(({ theme }) => ({
     backgroundColor: '#fff',
     height: '725px',
@@ -18,13 +19,21 @@ const ItemsWrapper = styled(Box)(({ theme }) => ({
   marginTop: '5px',
   overflowY: 'auto'
 }));
+const IconWrapper = styled(Box)(({ theme }) => ({
+  backgroundColor: '#c4c4c4',
+  borderRadius: '50%',
+  padding: '10px',
+  height: '24px',
+  width: '24px',
+  marginRight: '10px'
+}));
 const Planets = styled(Box)(({ theme }) => ({
   marginBottom: '10px',
-  border: '1px solid gray',
+  border: '1px solid #c4c4c460',
   borderRadius: '10px',
   padding: '10px',
   display: 'flex',
-  flexDirection: 'column',
+  alignItems: 'center',
   cursor: 'pointer'
 }));
 const BottonStyle = {
@@ -41,6 +50,8 @@ interface planetT{
 const PlanetWrapper = () => {
     const dispatch = useDispatch();
     const [planets, setPlanets] = useState<planetT[]>([])
+    const [searchedList, setSearchList] = useState<planetT[]>([])
+    const [isSearch, setIsSearch] = useState<boolean>(false)
     const getAllPlanets = () => {
       let getPlanets:planetT[] = []
       axios.get<any>(`https://swapi.dev/api/planets/`)
@@ -59,22 +70,51 @@ const PlanetWrapper = () => {
     const handleGetPalnets = () => {
       planets.length > 0 ? setPlanets([]) : getAllPlanets()
     }
-  useEffect(()=>{
+    const handleSearch = (event:any) => {
+      let planetHolder:planetT[] = []
+      if(event.target.value.length > 0) setIsSearch(true)
+      planets.map(item => {
+        if(item.name.toLowerCase().search(event.target.value.toLowerCase()) >= 0) planetHolder.push(item)
+      })
+      setSearchList(planetHolder)
+    }
+  useEffect(() => {
     getAllPlanets()
   },[])
   return (
     <Wrapper>
-      <TextField placeholder='Search...' variant="outlined" />
-      <ItemsWrapper>
-        {planets.map((item) => {
+      <TextField placeholder='Search...' variant="outlined" onChange={handleSearch}/>
+      {searchedList.length === 0 && isSearch && <Box>Nothing Founded !</Box>}
+      {!isSearch && <ItemsWrapper>
+        {planets.length > 0 && planets.map((item) => {
           return <Planets onClick={()=> dispatch(addToList(item.name))}>
-                  <Typography variant="h6">name: {item.name}</Typography>
-                  <Typography variant="subtitle1">climate: {item.climate}</Typography>
-                  <Typography variant="subtitle1">diameter: {item.diameter}</Typography>
-                  <Typography variant="subtitle1">gravity: {item.gravity}</Typography>
+                    <IconWrapper>
+                      <InsertPhotoIcon sx={{color: '#fff'}}/>
+                    </IconWrapper>
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                      <Typography variant="h6">name: {item.name}</Typography>
+                      <Typography variant="subtitle1">climate: {item.climate}</Typography>
+                      <Typography variant="subtitle1">diameter: {item.diameter}</Typography>
+                      <Typography variant="subtitle1">gravity: {item.gravity}</Typography>
+                    </Box>
                 </Planets>
         })}
-      </ItemsWrapper>
+      </ItemsWrapper>}
+      {isSearch && <ItemsWrapper>
+        {searchedList.length > 0 && searchedList.map((item) => {
+          return <Planets onClick={()=> dispatch(addToList(item.name))}>
+                    <IconWrapper>
+                      <InsertPhotoIcon sx={{color: '#fff'}}/>
+                    </IconWrapper>
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                      <Typography variant="h6">name: {item.name}</Typography>
+                      <Typography variant="subtitle1">climate: {item.climate}</Typography>
+                      <Typography variant="subtitle1">diameter: {item.diameter}</Typography>
+                      <Typography variant="subtitle1">gravity: {item.gravity}</Typography>
+                    </Box>
+                </Planets>
+        })}
+      </ItemsWrapper>}
       <Button sx={BottonStyle} variant="contained" onClick={handleGetPalnets}>{planets.length > 0 ? 'CLEAR LIST' : 'LOAD PLANETS'}</Button>
     </Wrapper>
   )

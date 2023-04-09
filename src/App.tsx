@@ -19,7 +19,9 @@ const Wrapper = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   overflowY: 'auto',
   "@media only screen and (max-width: 700px)": {
-    paddingBottom: '30px'
+    paddingBottom: '30px',
+    height: '100%',
+    marginTop: '80px',
   },
 }));
 const CostumGrid = styled(Grid)(({ theme }) => ({
