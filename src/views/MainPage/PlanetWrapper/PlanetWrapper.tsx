@@ -88,6 +88,7 @@ const PlanetWrapper = () => {
       {!isSearch && <ItemsWrapper>
         {planets.length > 0 && planets.map((item) => {
           return <Planets onClick={()=> dispatch(addToList(item.name))}>
+             {/* for avoide code duplicate and simplicity we can move these few lines of code to another component */}
                     <IconWrapper>
                       <InsertPhotoIcon sx={{color: '#fff'}}/>
                     </IconWrapper>

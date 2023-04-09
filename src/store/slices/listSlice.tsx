@@ -27,5 +27,4 @@ export const listSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { addToList, removeFromList } = listSlice.actions;
-// You must export the reducer as follows for it to be able to be read by the store.
 export default listSlice.reducer;

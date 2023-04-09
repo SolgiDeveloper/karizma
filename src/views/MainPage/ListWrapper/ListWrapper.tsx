@@ -88,6 +88,7 @@ const ListWrapper = () => {
       {!isSearch && <ItemsWrapper>
         {people.length > 0 && people.map((item) => {
           return <Peoples onClick={()=> dispatch(addToList(item.name))}>
+            {/* for avoide code duplicate and simplicity we can move these few lines of code to another component */}
                   <IconWrapper>
                     <InsertPhotoIcon sx={{color: '#fff'}}/>
                   </IconWrapper>

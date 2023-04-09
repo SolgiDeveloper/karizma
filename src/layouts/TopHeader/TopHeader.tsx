@@ -26,12 +26,15 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: '400px',
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
   borderRadius: '5px',
   textAlign: "right",
+  "@media only screen and (max-width: 700px)": {
+    width: '290px',
+  },
 };
 const TopHeader = () => {
   const [openQModal, setOpenQModal] = useState(false);
