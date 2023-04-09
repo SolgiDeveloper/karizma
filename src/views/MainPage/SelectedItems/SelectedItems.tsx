@@ -1,6 +1,10 @@
 import React from 'react';
 import {Box, Button} from "@mui/material";
 import { styled } from "@mui/system";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { removeFromList } from "../../../store/slices/listSlice";
 const Main = styled(Box)(({ theme }) => ({
     backgroundColor: '#fff',
     height: '725px',
@@ -23,11 +27,18 @@ const Items = styled(Button)(({ theme }) => ({
     borderRadius: '16px'
 }));
 const SelectedItems = () => {
+    const dispatch = useDispatch();
+    const list: string[] = useSelector(
+        (state: RootState) => state.list.value
+      );
   return (
     <Main>
-        <Box>Tab To Delete</Box>
+        {list.length > 0 && <Box>Tab To Delete</Box>}
         <Wrapper>
-            <Items variant="contained">Contained</Items>
+            {list.length > 0 && list.map((item)=>{
+                return <Items variant="contained" onClick={()=> dispatch(removeFromList(item))}>{item}</Items>
+            })}
+            
         </Wrapper>
     </Main>
   )

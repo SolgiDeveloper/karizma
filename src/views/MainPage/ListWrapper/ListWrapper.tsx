@@ -2,6 +2,8 @@ import React,{useEffect, useState} from 'react';
 import {Box, Button, TextField, Typography} from "@mui/material";
 import axios from 'axios'
 import { styled } from "@mui/system";
+import { useDispatch } from "react-redux";
+import { addToList } from "../../../store/slices/listSlice";
 const Wrapper = styled(Box)(({ theme }) => ({
     backgroundColor: '#fff',
     height: '725px',
@@ -37,6 +39,7 @@ interface peopleT {
   hairColor:string
 }
 const ListWrapper = () => {
+    const dispatch = useDispatch();
     const [people, setPeople] = useState<peopleT[]>([])
 
     const getAllPeoples = () => {
@@ -65,7 +68,7 @@ const ListWrapper = () => {
       <TextField placeholder='Search...' variant="outlined" />
       <ItemsWrapper>
         {people.map((item) => {
-          return <Peoples>
+          return <Peoples onClick={()=> dispatch(addToList(item.name))}>
                   <Typography variant="h6">name: {item.name}</Typography>
                   <Typography variant="subtitle1">barth day: {item.barthDay}</Typography>
                   <Typography variant="subtitle1">eye color: {item.eyeColor}</Typography>

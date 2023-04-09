@@ -2,6 +2,8 @@ import React,{useEffect, useState} from 'react';
 import {Box, Button, TextField, Typography} from "@mui/material";
 import axios from 'axios'
 import { styled } from "@mui/system";
+import { useDispatch } from "react-redux";
+import { addToList } from "../../../store/slices/listSlice";
 const Wrapper = styled(Box)(({ theme }) => ({
     backgroundColor: '#fff',
     height: '725px',
@@ -37,6 +39,7 @@ interface planetT{
   gravity:string
 }
 const PlanetWrapper = () => {
+    const dispatch = useDispatch();
     const [planets, setPlanets] = useState<planetT[]>([])
     const getAllPlanets = () => {
       let getPlanets:planetT[] = []
@@ -64,7 +67,7 @@ const PlanetWrapper = () => {
       <TextField placeholder='Search...' variant="outlined" />
       <ItemsWrapper>
         {planets.map((item) => {
-          return <Planets>
+          return <Planets onClick={()=> dispatch(addToList(item.name))}>
                   <Typography variant="h6">name: {item.name}</Typography>
                   <Typography variant="subtitle1">climate: {item.climate}</Typography>
                   <Typography variant="subtitle1">diameter: {item.diameter}</Typography>
